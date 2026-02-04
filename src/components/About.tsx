@@ -1,108 +1,91 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Layers, Zap, Globe } from 'lucide-react';
+import { useTheme } from './ThemeContext';
+
 export function About() {
+  const { theme } = useTheme();
+
+  // Theme-aware classes
+  const textPrimary = theme === 'light' ? 'text-black' : 'text-white';
+  const textSecondary = theme === 'light' ? 'text-gray-700' : 'text-gray-400';
+  const borderBg = theme === 'light' ? 'bg-white/10 border-black/10' : 'bg-white/5 border-white/10';
+  const iconBg = theme === 'light' ? 'bg-white/10 text-cyan-500' : 'bg-white/5 text-cyan-400';
+
+  const features = [
+    {
+      icon: Layers,
+      title: 'Deep Tech Stack',
+      desc: 'Leveraging the latest in WebGL and React'
+    },
+    {
+      icon: Zap,
+      title: 'Performance First',
+      desc: 'Optimized for speed without compromising visuals'
+    },
+    {
+      icon: Globe,
+      title: 'Global Reach',
+      desc: 'Serving clients across the digital multiverse'
+    }
+  ];
+
   return (
     <section id="about" className="py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
           {/* Text Content */}
           <motion.div
-            initial={{
-              opacity: 0,
-              x: -50
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0
-            }}
-            viewport={{
-              once: true
-            }}
-            transition={{
-              duration: 0.8
-            }}>
-
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Crafting the <span className="text-magenta-500">Impossible</span>
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${textPrimary}`}>
+              Crafting the <span className={theme === 'light' ? 'text-cyan-500' : 'text-magenta-500'}>Impossible</span>
             </h2>
-            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+            <p className={`text-lg mb-8 leading-relaxed ${textSecondary}`}>
               We are a collective of digital artisans, creative technologists,
               and strategic thinkers. Born in the void between art and code, we
               exist to push the boundaries of what's possible on the web.
             </p>
 
             <div className="space-y-6">
-              {[
-              {
-                icon: Layers,
-                title: 'Deep Tech Stack',
-                desc: 'Leveraging the latest in WebGL and React'
-              },
-              {
-                icon: Zap,
-                title: 'Performance First',
-                desc: 'Optimized for speed without compromising visuals'
-              },
-              {
-                icon: Globe,
-                title: 'Global Reach',
-                desc: 'Serving clients across the digital multiverse'
-              }].
-              map((item, index) =>
-              <motion.div
-                key={index}
-                initial={{
-                  opacity: 0,
-                  y: 20
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0
-                }}
-                viewport={{
-                  once: true
-                }}
-                transition={{
-                  delay: index * 0.2
-                }}
-                className="flex items-start gap-4">
-
-                  <div className="p-3 rounded-lg bg-white/5 border border-white/10 text-cyan-400">
+              {features.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className={`p-3 rounded-lg ${iconBg} border ${theme === 'light' ? 'border-black/10' : 'border-white/10'}`}>
                     <item.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-lg">
+                    <h3 className={`font-bold text-lg ${textPrimary}`}>
                       {item.title}
                     </h3>
-                    <p className="text-gray-500">{item.desc}</p>
+                    <p className={`${textSecondary}`}>{item.desc}</p>
                   </div>
                 </motion.div>
-              )}
+              ))}
             </div>
           </motion.div>
 
           {/* Visual Element */}
           <motion.div
-            initial={{
-              opacity: 0,
-              scale: 0.8
-            }}
-            whileInView={{
-              opacity: 1,
-              scale: 1
-            }}
-            viewport={{
-              once: true
-            }}
-            transition={{
-              duration: 0.8
-            }}
-            className="relative">
-
-            <div className="relative z-10 aspect-square rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-8 flex items-center justify-center group">
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <div className={`relative z-10 aspect-square rounded-2xl overflow-hidden border ${borderBg} p-8 flex items-center justify-center group`}>
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-magenta-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+              
               {/* Abstract Art */}
               <div className="relative w-full h-full border border-white/10 rounded-xl flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay" />
@@ -117,6 +100,6 @@ export function About() {
           </motion.div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 }

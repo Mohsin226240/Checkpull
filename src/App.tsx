@@ -14,12 +14,13 @@ import { Newsletter } from './components/Newsletter';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { ParticleBackground } from './components/ParticleBackground';
+import { ThemeProvider } from './components/ThemeContext';
+
 export function App() {
   return (
-    <div className="bg-black min-h-screen text-white selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
-      <ParticleBackground />
-
-      <div className="relative z-10">
+    <ThemeProvider>
+      <div className="min-h-screen overflow-x-hidden transition-colors duration-300">
+        <ParticleBackground />
         <Navigation />
         <Hero />
         <Clients />
@@ -35,6 +36,6 @@ export function App() {
         <CTA />
         <Footer />
       </div>
-    </div>);
-
+    </ThemeProvider>
+  );
 }

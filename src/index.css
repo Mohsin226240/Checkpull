@@ -45,7 +45,15 @@ body {
 .backface-hidden {
   backface-visibility: hidden;
 }
+body.light {
+  --bg-color: #f1f1f1;
+  --text-color: #000000;
+}
 
+body.dark {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+}
 /* Animation Utilities */
 @keyframes gradient-x {
   0% { background-position: 0% 50%; }
